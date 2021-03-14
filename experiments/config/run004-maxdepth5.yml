@@ -1,0 +1,36 @@
+description: LightGBM
+competition_name: 'atmacup10'
+trial_name: 'tmp'
+fe_name: 'fe000'
+data:
+  sample_submission: '/home/saito/atmacup9/my_pipeline/input/atmacup09-dataset/datasets/atmaCup#9__sample_submission.csv'
+model_name: 'ModelLGBM'
+target: 'likes'
+fold_num: 5
+seed_num: 33
+score_name: 'rmsle'
+seed_ave_num: [11,22,33,44,55]
+params: {
+  'objective': 'rmse',
+  "metric": 'rmse',
+  'num_leaves': 24, #2**max_depthより少し小さめにすると過学習を防げる
+  'max_depth': 5,
+  "feature_fraction": 0.8,
+  'subsample_freq': 1,
+  "bagging_fraction": 0.7,
+  'min_data_in_leaf': 10,
+  'learning_rate': 0.01,
+  "boosting": "gbdt",
+  "lambda_l1": 0.4,
+  "lambda_l2": 0.4,
+  "verbosity": -1,
+  "random_state": 33,
+  "num_boost_round": 50000,
+  "early_stopping_rounds": 100
+}
+verbose_eval: 100
+evaluation_metric: 'rmse'
+advanced: predict_exp
+SRC_DIR: '../../src'
+
+DATA_DIR: '/home/saito/atmacup10/my_pipeline/input/atmacup10-dataset/datasets'

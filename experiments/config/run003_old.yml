@@ -1,0 +1,41 @@
+description: LightGBM
+competition_name: 'atmacup9'
+trial_name: 'tmp'
+fe_name: 'fe000'
+data:
+  sample_submission: '/home/saito/atmacup9/my_pipeline/input/atmacup09-dataset/datasets/atmaCup#9__sample_submission.csv'
+# col_def:
+#   cat_col: [
+#     'Platform',
+#     'Genre',
+#     # 'Developer',
+#     'Rating'
+#   ]
+#   tar_col: 'Global_Sales'
+model_name: 'ModelLGBM'
+fold_num: 5
+seed_num: 33
+seed_ave_num: [11,22,33,44,55]
+params: {
+  'objective': 'binary',
+  "metric": 'binary_logloss',
+  'num_leaves': 64, #2**max_depthより少し小さめにすると過学習を防げる
+  'max_depth': -1,
+  "feature_fraction": 0.8,
+  'subsample_freq': 1,
+  "bagging_fraction": 0.7,
+  'min_data_in_leaf': 10,
+  'learning_rate': 0.01,
+  "boosting": "gbdt",
+  "lambda_l1": 0.4,
+  "lambda_l2": 0.4,
+  "verbosity": -1,
+  "random_state": 33,
+  "num_boost_round": 50000,
+  "early_stopping_rounds": 100
+}
+verbose_eval: 100
+evaluation_metric: 'auc'
+advanced: predict_exp
+SRC_DIR: '../../src'
+DATA_DIR: '../../input/datasets'
