@@ -2,6 +2,8 @@ import pandas as pd
 from sklearn.model_selection import KFold
 from sklearn.model_selection import StratifiedKFold
 
+from iterstrat.ml_stratifiers import MultilabelStratifiedKFold
+
 def add_fold_kf(df: pd.DataFrame(), fold_num:int) -> pd.DataFrame():
     '''KFoldのfold_numberを追加したdfを返す'''
 
@@ -91,6 +93,19 @@ def add_fold_tss(df: pd.DataFrame(), time_sr:pd.Series, fold_num=5) -> pd.DataFr
         
     result['fold'] = result['fold'].astype('int')
     
+    return result
+
+def add_mskf_fold(df, target_df, fold_num: int):
+    '''MultilabelStratifiedKFoldのfold_numberを追加したdfを返す'''
+    result = df.copy()
+
+    mskf = MultilabelStratifiedKFold(n_splits=fold_num)
+
+    for f, (_, v_idx) in enumerate(mskf.split(X=df, y=target_df)):
+        result.loc[v_idx, 'fold'] = f
+
+    result['fold'] = result['fold'].astype(int)
+
     return result
 
 def add_fold_org(df: pd.DataFrame(), fold_num:int) -> pd.DataFrame():
