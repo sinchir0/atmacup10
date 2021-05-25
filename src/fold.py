@@ -95,7 +95,7 @@ def add_fold_tss(df: pd.DataFrame(), time_sr:pd.Series, fold_num=5) -> pd.DataFr
     
     return result
 
-def add_mskf_fold(df, target_df, fold_num: int):
+def add_fold_mskf(df, target_df, fold_num: int):
     '''MultilabelStratifiedKFoldのfold_numberを追加したdfを返す'''
     result = df.copy()
 
